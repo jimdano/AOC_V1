@@ -1,7 +1,5 @@
 package aoc.abstractions;
 
-import java.rmi.activation.ActivationGroupDesc.CommandEnvironment;
-
 import aoc.interfaces.patterncommand.ICommand;
 
 public abstract class Metronome {
@@ -22,6 +20,10 @@ public abstract class Metronome {
 		return tempoParMesure;
 	}
 	
+	public boolean getEtatMarche(){
+		return etatMarche;
+	}
+	
 	public void setTempo(long t) {
 		tempo = t;
 	}
@@ -35,10 +37,6 @@ public abstract class Metronome {
 	}
 	
 	public void setEtatMarche(boolean b){
-		etatMarche = true;
-	}
-	
-	public void setEtatStop(boolean b){
-		 setEtatMarche = false;
+		etatMarche = b;
 	}
 }
