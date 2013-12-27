@@ -31,8 +31,7 @@ import fr.istic.aoc.metronome.controller.IController;
  */
 public class Metronome extends JPanel implements IView, IControllerListener {
 
-	private static final long serialVersionUID = 4597683751479805572L;
-
+	private static final long serialVersionUID = 1L;
 	private static final String LED_1 = "TEMPO";
 	private static final String LED_2 = "MESURE";
 	private static final String START_BTN = "Start";

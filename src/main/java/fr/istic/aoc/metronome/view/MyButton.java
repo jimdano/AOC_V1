@@ -11,7 +11,7 @@ import javax.swing.JButton;
  */
 public class MyButton extends JButton implements MouseListener {
 
-	private static final long serialVersionUID = 8133731061390398379L;
+	private static final long serialVersionUID = 1L;
 
 	private boolean pressed = false;
 

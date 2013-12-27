@@ -11,7 +11,7 @@ import fr.istic.aoc.metronome.view.Metronome;
  */
 public class MetronomeLauncher extends JFrame {
 
-	private static final long serialVersionUID = -7836121271558471730L;
+	private static final long serialVersionUID = 1L;
 
 	private static final int width = 320;
 	private static final int height = 200;
