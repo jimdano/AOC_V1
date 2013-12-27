@@ -40,7 +40,6 @@ public class MetronomeLauncher extends JFrame {
 		MetronomeController.getInstance().setView(view);
 		MetronomeController.getInstance().addControllerListener(view);
 
-		view.setController(MetronomeController.getInstance());
 		view.init();
 		MetronomeController.getInstance().init();
 	}

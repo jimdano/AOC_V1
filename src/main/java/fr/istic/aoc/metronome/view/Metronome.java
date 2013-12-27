@@ -20,8 +20,8 @@ import fr.istic.aoc.components.api.IClavier;
 import fr.istic.aoc.components.api.IEmetteurSonore;
 import fr.istic.aoc.components.api.IHorloge;
 import fr.istic.aoc.components.api.IMolette;
-import fr.istic.aoc.metronome.controller.IController;
 import fr.istic.aoc.metronome.controller.IControllerListener;
+import fr.istic.aoc.metronome.controller.MetronomeController;
 
 /**
  * @author Jimmy
@@ -37,8 +37,6 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	private static final String STOP_BOUTON = "Stop";
 	private static final String INC_BOUTON = "Inc";
 	private static final String DEC_BOUTON = "Dec";
-
-	private IController controller;
 
 	private JSlider tempoSlider;
 
@@ -72,31 +70,31 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 		configureView();
 		tempoSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
-				controller.tempo();
+				MetronomeController.getInstance().tempo();
 			}
 		});
 		
 		startBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				controller.start();
+				MetronomeController.getInstance().start();
 			}
 		});
 		
 		stopBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				controller.stop();
+				MetronomeController.getInstance().stop();
 			}
 		});
 		
 		incBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				controller.inc();
+				MetronomeController.getInstance().inc();
 			}
 		});
 		
 		decBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				controller.dec();
+				MetronomeController.getInstance().dec();
 			}
 		});
 	}
@@ -152,10 +150,6 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 		add(displayLabel, BorderLayout.NORTH);
 		add(ledsPanel, BorderLayout.CENTER);
 		add(btnsPanel, BorderLayout.SOUTH);
-	}
-
-	public void setController(IController c){
-		controller = c;
 	}
 	
 	public void setTempoValues(int min, int max, int init) {

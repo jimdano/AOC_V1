@@ -12,7 +12,6 @@ import fr.istic.aoc.metronome.moteur.IMoteur;
  */
 public class BipCommand implements ICommand{
 
-	
 	private IMoteur m;
 	
 	public BipCommand(IMoteur moteur) {
