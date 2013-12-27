@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import fr.isitc.aoc.metronome.command.BipCommand;
 import fr.istic.aoc.metronome.moteur.IMoteur;
 import fr.istic.aoc.metronome.moteur.IMoteurListener;
+import fr.istic.aoc.metronome.moteur.MoteurMetronome;
 import fr.istic.aoc.metronome.view.IControllerListener;
 import fr.istic.aoc.metronome.view.IView;
 
@@ -24,6 +25,23 @@ public class MetronomeController implements  IController, IMoteurListener{
 	private IControllerListener listener;
 	private IMoteur moteur;
 
+	/** Constructeur privé */	
+	private MetronomeController() {
+	}
+ 
+	/** Holder */
+	private static class SingletonHolder
+	{		
+		/** Instance unique non préinitialisée */
+		private final static MetronomeController instance = new MetronomeController();
+	}
+ 
+	/** Point d'accès pour l'instance unique du singleton */
+	public static MetronomeController getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+	
 	public void init() {
 		this.view.setTempoConstants(MIN_TEMPO, MAX_TEMPO, INIT_TEMPO);
 		this.view.setBPMConstants(MIN_BPM, MAX_BPM, INIT_BPM);

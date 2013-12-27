@@ -13,12 +13,11 @@ public class MetronomeLauncher extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final int width = 320;
-	private static final int height = 200;
+	private static final int width = 280;
+	private static final int height = 220;
 
 	private Metronome view;
 	private MoteurMetronome engine;
-	private MetronomeController controller;
 
 	public MetronomeLauncher() {
 		super("Métronomium V1");
@@ -35,17 +34,15 @@ public class MetronomeLauncher extends JFrame {
 	private void initComponents() {
 		view = new Metronome();
 		engine = new MoteurMetronome(60, 4);
-		controller = new MetronomeController();
+		
+		MetronomeController.getInstance().setMoteur(engine);
+		MetronomeController.getInstance().setView(view);
+		MetronomeController.getInstance().addControllerListener(view);
+		engine.setEngineListener(MetronomeController.getInstance());
 
-		controller.setMoteur(engine);
-		controller.setView(view);
-		controller.addControllerListener(view);
-		engine.setEngineListener(controller);
-
-		view.setController(controller);
-	
+		view.setController(MetronomeController.getInstance());
 		view.init();
-		controller.init();
+		MetronomeController.getInstance().init();
 	}
 	
 	public static void main(String[] args) {
