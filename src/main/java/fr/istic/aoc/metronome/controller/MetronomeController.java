@@ -7,13 +7,12 @@ import fr.isitc.aoc.metronome.command.BipCommand;
 import fr.istic.aoc.metronome.moteur.IMoteur;
 import fr.istic.aoc.metronome.moteur.IMoteurListener;
 import fr.istic.aoc.metronome.moteur.MoteurMetronome;
-import fr.istic.aoc.metronome.view.IControllerListener;
 import fr.istic.aoc.metronome.view.IView;
 
 
 public class MetronomeController implements  IController, IMoteurListener{
 
-	private static final int LED_FLASH_DELAY = 120;
+	private static final int LED_FLASH_DELAY = 150;
 	private static final int MIN_TEMPO = 0;
 	private static final int MIN_BPM = 2;
 	private static final int MAX_TEMPO = 200;

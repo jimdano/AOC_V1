@@ -25,6 +25,7 @@ import fr.istic.aoc.components.api.IEmetteurSonore;
 import fr.istic.aoc.components.api.IHorloge;
 import fr.istic.aoc.components.api.IMolette;
 import fr.istic.aoc.metronome.controller.IController;
+import fr.istic.aoc.metronome.controller.IControllerListener;
 
 /**
  * @author Jimmy
@@ -75,7 +76,7 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 		
 		this.blueLedIcon = new ImageIcon(getClass().getResource("/images/bleu.png"));
 		this.redLedIcon = new ImageIcon(getClass().getResource("/images/rouge.png"));
-		this.offLedIcon = new ImageIcon(getClass().getResource("/images/noir.png"));
+		this.offLedIcon = new ImageIcon(getClass().getResource("/images/blanc.png"));
 		
 		this.displayLabel = new JTextField();
 		displayLabel.setEditable(false);

@@ -1,4 +1,4 @@
-package fr.istic.aoc.metronome.view;
+package fr.istic.aoc.metronome.controller;
 
 public interface IControllerListener {
 	
