@@ -12,12 +12,12 @@ public interface IView extends ISimulation {
 	 * @param maxTempo
 	 * @param defaultTempo
 	 */
-	void setTempoConstants(int minTempo, int maxTempo, int defaultTempo);
+	void setTempoValues(int minTempo, int maxTempo, int defaultTempo);
 
 	/**
 	 * @param minBpm
 	 * @param maxBpm
 	 * @param defaultBpm
 	 */
-	void setBPMConstants(int minBpm, int maxBpm, int defaultBpm);
+	void setBPMValues(int minBpm, int maxBpm, int defaultBpm);
 }

@@ -7,8 +7,7 @@ import fr.istic.aoc.components.command.ICommand;
 import fr.istic.aoc.metronome.moteur.IMoteur;
 
 /**
- * @author jimmy
- *
+ * @author jimmy & Anthony
  */
 public class BipCommand implements ICommand{
 

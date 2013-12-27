@@ -1,20 +1,16 @@
 package fr.istic.aoc.metronome.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -33,20 +29,22 @@ import fr.istic.aoc.metronome.controller.IControllerListener;
 public class Metronome extends JPanel implements IView, IControllerListener {
 
 	private static final long serialVersionUID = 1L;
-	private static final String LED_1 = "TEMPO";
-	private static final String LED_2 = "MESURE";
-	private static final String START_BTN = "Start";
-	private static final String STOP_BTN = "Stop";
-	private static final String INC_BTN = "Inc";
-	private static final String DEC_BTN = "Dec";
+	
+	private static final String LED_TEMPO_LABEL = "TEMPO";
+	private static final String LED_MESURE_LABEL = "MESURE";
+	
+	private static final String START_BOUTON = "Start";
+	private static final String STOP_BOUTON = "Stop";
+	private static final String INC_BOUTON = "Inc";
+	private static final String DEC_BOUTON = "Dec";
 
 	private IController controller;
 
 	private JSlider tempoSlider;
 
-	private ImageIcon redLedIcon;
-	private ImageIcon blueLedIcon;
-	private ImageIcon offLedIcon;
+	private ImageIcon ledRouge;
+	private ImageIcon ledBleue;
+	private ImageIcon ledOff;
 	
 	private JTextField displayLabel;
 	private JLabel[] ledLabels;
@@ -61,6 +59,10 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	private int minBPM;
 	private int maxBPM;
 
+	private JPanel ledsPanel;
+
+	private JPanel btnsPanel;
+
 	public Metronome() {
 
 	}
@@ -68,66 +70,6 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	public void init(){
 		initComponents();
 		configureView();
-		defineCallbacks();
-	}
-	
-	private void initComponents() {
-		tempoSlider = new JSlider(JSlider.VERTICAL);
-		
-		blueLedIcon = new ImageIcon(getClass().getResource("/images/bleu.png"));
-		redLedIcon = new ImageIcon(getClass().getResource("/images/rouge.png"));
-		offLedIcon = new ImageIcon(getClass().getResource("/images/blanc.png"));
-		
-		displayLabel = new JTextField();
-		displayLabel.setEditable(false);
-		displayLabel.setSize(new Dimension(25,25));
-		displayLabel.setPreferredSize(new Dimension(25,25));
-		ledLabels = new JLabel[2];
-		ledLabels[IAfficheur.TEMPO] = new JLabel(LED_1, offLedIcon, JLabel.RIGHT);
-		ledLabels[IAfficheur.MEASURE] = new JLabel(LED_2, offLedIcon, JLabel.RIGHT);
-
-		startBtn = new MyButton(START_BTN);
-		stopBtn = new MyButton(STOP_BTN);
-		incBtn = new MyButton(INC_BTN);
-		decBtn = new MyButton(DEC_BTN);
-		
-		cmdButtons = new MyButton[4];
-		cmdButtons[IClavier.START] = startBtn;
-		cmdButtons[IClavier.STOP] = stopBtn;
-		cmdButtons[IClavier.INC] = incBtn;
-		cmdButtons[IClavier.DEC] = decBtn;
-	}
-
-	private void configureView() {
-		setLayout(new BorderLayout());
-		
-		// Turn on labels at major tick marks.
-		tempoSlider.setMajorTickSpacing(100);
-		tempoSlider.setMinorTickSpacing(10);
-		tempoSlider.setPaintTicks(true);
-		tempoSlider.setPaintLabels(true);
-		tempoSlider.setBorder(new EmptyBorder(0, 10, 0, 0));
-		
-		displayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JPanel ledsPanel = new JPanel(new GridLayout(1, 2));
-		ledsPanel.setBorder(new EmptyBorder(0, 0, 0, 10));
-		ledsPanel.add(ledLabels[0]);
-		ledsPanel.add(ledLabels[1]);
-		
-		JPanel btnsPanel = new JPanel(new GridLayout(1, 4));
-		btnsPanel.add(startBtn);
-		btnsPanel.add(stopBtn);
-		btnsPanel.add(incBtn);
-		btnsPanel.add(decBtn);
-
-		add(tempoSlider, BorderLayout.WEST);
-		add(displayLabel, BorderLayout.NORTH);
-		add(ledsPanel, BorderLayout.CENTER);
-		add(btnsPanel, BorderLayout.SOUTH);
-	}
-
-	private void defineCallbacks() {
 		tempoSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				controller.tempo();
@@ -158,24 +100,72 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 			}
 		});
 	}
+	
+	private void initComponents() {
+		tempoSlider = new JSlider(JSlider.VERTICAL);
+		
+		ledBleue = new ImageIcon(getClass().getResource("/images/bleu.png"));
+		ledRouge = new ImageIcon(getClass().getResource("/images/rouge.png"));
+		ledOff = new ImageIcon(getClass().getResource("/images/blanc.png"));
+		
+		displayLabel = new JTextField();
+		displayLabel.setEditable(false);
+		ledLabels = new JLabel[2];
+		ledLabels[IAfficheur.TEMPO] = new JLabel(LED_TEMPO_LABEL, ledOff, JLabel.RIGHT);
+		ledLabels[IAfficheur.MEASURE] = new JLabel(LED_MESURE_LABEL, ledOff, JLabel.RIGHT);
+
+		startBtn = new MyButton(START_BOUTON);
+		stopBtn = new MyButton(STOP_BOUTON);
+		incBtn = new MyButton(INC_BOUTON);
+		decBtn = new MyButton(DEC_BOUTON);
+		
+		cmdButtons = new MyButton[4];
+		cmdButtons[IClavier.START] = startBtn;
+		cmdButtons[IClavier.STOP] = stopBtn;
+		cmdButtons[IClavier.INC] = incBtn;
+		cmdButtons[IClavier.DEC] = decBtn;
+	}
+
+	private void configureView() {
+		setLayout(new BorderLayout());
+		
+		// Turn on labels at major tick marks.
+		tempoSlider.setMajorTickSpacing(100);
+		tempoSlider.setMinorTickSpacing(15);
+		tempoSlider.setPaintTicks(true);
+		tempoSlider.setPaintLabels(true);
+		tempoSlider.setBorder(new EmptyBorder(0, 10, 0, 0));
+		
+		displayLabel.setHorizontalAlignment(JTextField.CENTER);
+		ledsPanel = new JPanel(new GridLayout(1, 2));
+		ledsPanel.setBorder(new EmptyBorder(0, 0, 0, 10));
+		ledsPanel.add(ledLabels[0]);
+		ledsPanel.add(ledLabels[1]);
+		
+		btnsPanel = new JPanel(new GridLayout(1, 4));
+		btnsPanel.add(startBtn);
+		btnsPanel.add(stopBtn);
+		btnsPanel.add(incBtn);
+		btnsPanel.add(decBtn);
+
+		add(tempoSlider, BorderLayout.WEST);
+		add(displayLabel, BorderLayout.NORTH);
+		add(ledsPanel, BorderLayout.CENTER);
+		add(btnsPanel, BorderLayout.SOUTH);
+	}
 
 	public void setController(IController c){
 		controller = c;
 	}
 	
-	protected void postExecute(TimerTask task, int delay) {
-		Timer timer = new Timer();
-		timer.schedule(task, delay);
-	}
-	
-	public void setTempoConstants(int min, int max, int init) {
+	public void setTempoValues(int min, int max, int init) {
 		tempoSlider.setMinimum(min);
 		tempoSlider.setMaximum(max);
 		tempoSlider.setValue(init);
 		onTempoChanged(init);
 	}
 	
-	public void setBPMConstants(int minBpm, int maxBpm, int defaultBpm) {
+	public void setBPMValues(int minBpm, int maxBpm, int defaultBpm) {
 		minBPM = minBpm;
 		maxBPM = maxBpm;
 	}
@@ -210,13 +200,11 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	public void allumerLed(int id) {
 		switch (id) {
 			case IAfficheur.TEMPO:
-				ledLabels[id].setIcon(redLedIcon);
+				ledLabels[id].setIcon(ledRouge);
 				break;
-				
 			case IAfficheur.MEASURE:
-				ledLabels[id].setIcon(blueLedIcon);
+				ledLabels[id].setIcon(ledBleue);
 				break;
-			
 			default:
 				System.err.println("Not cool");
 				break;
@@ -224,7 +212,7 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	}
 
 	public void eteindreLed(int id) {
-		ledLabels[id].setIcon(offLedIcon);
+		ledLabels[id].setIcon(ledOff);
 	}
 
 	public void afficherTempo(int value) {

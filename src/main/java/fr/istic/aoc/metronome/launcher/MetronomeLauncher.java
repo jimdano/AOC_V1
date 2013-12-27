@@ -1,4 +1,4 @@
-package fr.istic.aoc.metronome;
+package fr.istic.aoc.metronome.launcher;
 
 import javax.swing.JFrame;
 
@@ -33,7 +33,8 @@ public class MetronomeLauncher extends JFrame {
 
 	private void initComponents() {
 		view = new Metronome();
-		engine = new MoteurMetronome(60, 4);
+		MetronomeController.getInstance();
+		engine = new MoteurMetronome(MetronomeController.INIT_TEMPO, MetronomeController.INIT_BPM);
 		
 		MetronomeController.getInstance().setMoteur(engine);
 		MetronomeController.getInstance().setView(view);

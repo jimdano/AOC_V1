@@ -6,7 +6,6 @@ import java.util.TimerTask;
 import fr.isitc.aoc.metronome.command.BipCommand;
 import fr.istic.aoc.metronome.moteur.IMoteur;
 import fr.istic.aoc.metronome.moteur.IMoteurListener;
-import fr.istic.aoc.metronome.moteur.MoteurMetronome;
 import fr.istic.aoc.metronome.view.IView;
 
 
@@ -17,8 +16,8 @@ public class MetronomeController implements  IController, IMoteurListener{
 	private static final int MIN_BPM = 2;
 	private static final int MAX_TEMPO = 200;
 	private static final int MAX_BPM = 7;
-	private static final int INIT_TEMPO = 120;
-	private static final int INIT_BPM = 4;
+	public static final int INIT_TEMPO = 100;
+	public static final int INIT_BPM = 4;
 	
 	private IView view;
 	private IControllerListener listener;
@@ -42,8 +41,8 @@ public class MetronomeController implements  IController, IMoteurListener{
 	}
 	
 	public void init() {
-		this.view.setTempoConstants(MIN_TEMPO, MAX_TEMPO, INIT_TEMPO);
-		this.view.setBPMConstants(MIN_BPM, MAX_BPM, INIT_BPM);
+		this.view.setTempoValues(MIN_TEMPO, MAX_TEMPO, INIT_TEMPO);
+		this.view.setBPMValues(MIN_BPM, MAX_BPM, INIT_BPM);
 		this.moteur.setBipCommand(new BipCommand(moteur));
 
 		if (this.moteur.isStarted()){
