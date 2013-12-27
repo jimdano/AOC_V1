@@ -53,12 +53,6 @@ public interface IMoteur {
 	ICommand getBipCommand();
 	
 	/**
-	 * Adds a listener to engine changes
-	 * @param listener
-	 */
-	void setEngineListener(IMoteurListener listener);
-	
-	/**
 	 * Called by the beat command to trigger a beat
 	 */
 	void bip();

@@ -39,7 +39,6 @@ public class MetronomeLauncher extends JFrame {
 		MetronomeController.getInstance().setMoteur(engine);
 		MetronomeController.getInstance().setView(view);
 		MetronomeController.getInstance().addControllerListener(view);
-		engine.setEngineListener(MetronomeController.getInstance());
 
 		view.setController(MetronomeController.getInstance());
 		view.init();

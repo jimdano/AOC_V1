@@ -8,9 +8,11 @@ import fr.istic.aoc.metronome.moteur.IMoteur;
 
 /**
  * @author jimmy & Anthony
+ * Classe qui représente la concrete command dans le patron de conception command
  */
 public class BipCommand implements ICommand{
 
+	
 	private IMoteur m;
 	
 	public BipCommand(IMoteur moteur) {

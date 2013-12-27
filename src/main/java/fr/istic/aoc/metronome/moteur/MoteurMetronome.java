@@ -5,6 +5,7 @@ import fr.isitc.aoc.metronome.state.StartState;
 import fr.isitc.aoc.metronome.state.StopState;
 import fr.istic.aoc.components.api.IHorloge;
 import fr.istic.aoc.components.command.ICommand;
+import fr.istic.aoc.metronome.controller.MetronomeController;
 import fr.istic.aoc.metronome.horloge.Horloge;
 
 public class MoteurMetronome implements IMoteur {
@@ -15,7 +16,6 @@ public class MoteurMetronome implements IMoteur {
 	private IHorloge horloge;
 	private ICommand bipCmd;
 	private IMoteurState state = StopState.stop;
-	private IMoteurListener listener;
 
 	public MoteurMetronome(int tempo, int bpm) {
 		this.tempo = tempo;
@@ -36,17 +36,13 @@ public class MoteurMetronome implements IMoteur {
 	public void start() {
 		state.start(this, horloge);
 		state = StartState.start;
-		if (listener != null) {
-			listener.onStart(tempo, bpm);
-		}
+		MetronomeController.getInstance().onStart(tempo, bpm);
 	}
 
 	public void stop() {
 		state.stop(this, horloge);
 		state = StopState.stop;
-		if (listener != null) {
-			listener.onStop();
-		}
+		MetronomeController.getInstance().onStop();
 	}
 
 	public int getBpm() {
@@ -55,9 +51,7 @@ public class MoteurMetronome implements IMoteur {
 
 	public void setBpm(int value) {
 		bpm = value;
-		if (this.listener != null) {
-			listener.onBPMChanged(value);
-		}
+		MetronomeController.getInstance().onBPMChanged(value);
 	}
 
 	public int getTempo() {
@@ -67,9 +61,7 @@ public class MoteurMetronome implements IMoteur {
 	public void setTempo(int value) {
 		tempo = value;
 		state.setTempo(this, horloge);
-		if (this.listener != null) {
-			listener.onTempoChanged(value);
-		}
+		MetronomeController.getInstance().onTempoChanged(value);
 	}
 
 	public void setBipCommand(ICommand cmd) {
@@ -80,18 +72,12 @@ public class MoteurMetronome implements IMoteur {
 		return bipCmd;
 	}
 
-	public void setEngineListener(IMoteurListener listener) {
-		this.listener = listener;
-	}
-
 	public void bip() {
-		if (listener != null) {
-			listener.onBip();
-			bipCount++;
-			if (bipCount % bpm == 0) {
-				listener.onMesure();
-				bipCount = 0;
-			}
+		MetronomeController.getInstance().onBip();
+		bipCount++;
+		if (bipCount % bpm == 0) {
+			MetronomeController.getInstance().onMesure();
+			bipCount = 0;
 		}
 	}
 }
