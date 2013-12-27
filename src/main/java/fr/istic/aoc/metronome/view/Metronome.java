@@ -127,7 +127,6 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	private void configureView() {
 		setLayout(new BorderLayout());
 		
-		// Turn on labels at major tick marks.
 		tempoSlider.setMajorTickSpacing(100);
 		tempoSlider.setMinorTickSpacing(15);
 		tempoSlider.setPaintTicks(true);

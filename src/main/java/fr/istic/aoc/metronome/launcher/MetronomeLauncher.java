@@ -22,26 +22,20 @@ public class MetronomeLauncher extends JFrame {
 	public MetronomeLauncher() {
 		super("Métronomium V1");
 		
-		this.initComponents();
-		this.setSize(width, height);
-		this.setLocationRelativeTo(this.getParent());
-		this.add(this.view);
-		this.setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-	}
-
-	private void initComponents() {
 		view = new Metronome();
 		MetronomeController.getInstance();
 		engine = new MoteurMetronome(MetronomeController.INIT_TEMPO, MetronomeController.INIT_BPM);
-		
 		MetronomeController.getInstance().setMoteur(engine);
 		MetronomeController.getInstance().setView(view);
 		MetronomeController.getInstance().addControllerListener(view);
-
 		view.init();
 		MetronomeController.getInstance().init();
+		setSize(width, height);
+		setLocationRelativeTo(this.getParent());
+		add(this.view);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 	
 	public static void main(String[] args) {
