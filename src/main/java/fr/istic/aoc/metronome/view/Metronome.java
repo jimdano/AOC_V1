@@ -66,40 +66,40 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	}
 
 	public void init(){
-		this.initComponents();
-		this.configureView();
-		this.defineCallbacks();
+		initComponents();
+		configureView();
+		defineCallbacks();
 	}
 	
 	private void initComponents() {
-		this.tempoSlider = new JSlider(JSlider.VERTICAL);
+		tempoSlider = new JSlider(JSlider.VERTICAL);
 		
-		this.blueLedIcon = new ImageIcon(getClass().getResource("/images/bleu.png"));
-		this.redLedIcon = new ImageIcon(getClass().getResource("/images/rouge.png"));
-		this.offLedIcon = new ImageIcon(getClass().getResource("/images/blanc.png"));
+		blueLedIcon = new ImageIcon(getClass().getResource("/images/bleu.png"));
+		redLedIcon = new ImageIcon(getClass().getResource("/images/rouge.png"));
+		offLedIcon = new ImageIcon(getClass().getResource("/images/blanc.png"));
 		
-		this.displayLabel = new JTextField();
+		displayLabel = new JTextField();
 		displayLabel.setEditable(false);
 		displayLabel.setSize(new Dimension(25,25));
 		displayLabel.setPreferredSize(new Dimension(25,25));
-		this.ledLabels = new JLabel[2];
-		this.ledLabels[IAfficheur.TEMPO] = new JLabel(LED_1, this.offLedIcon, JLabel.RIGHT);
-		this.ledLabels[IAfficheur.MEASURE] = new JLabel(LED_2, this.offLedIcon, JLabel.RIGHT);
+		ledLabels = new JLabel[2];
+		ledLabels[IAfficheur.TEMPO] = new JLabel(LED_1, offLedIcon, JLabel.RIGHT);
+		ledLabels[IAfficheur.MEASURE] = new JLabel(LED_2, offLedIcon, JLabel.RIGHT);
 
-		this.startBtn = new MyButton(START_BTN);
-		this.stopBtn = new MyButton(STOP_BTN);
-		this.incBtn = new MyButton(INC_BTN);
-		this.decBtn = new MyButton(DEC_BTN);
+		startBtn = new MyButton(START_BTN);
+		stopBtn = new MyButton(STOP_BTN);
+		incBtn = new MyButton(INC_BTN);
+		decBtn = new MyButton(DEC_BTN);
 		
-		this.cmdButtons = new MyButton[4];
-		this.cmdButtons[IClavier.START] = this.startBtn;
-		this.cmdButtons[IClavier.STOP] = this.stopBtn;
-		this.cmdButtons[IClavier.INC] = this.incBtn;
-		this.cmdButtons[IClavier.DEC] = this.decBtn;
+		cmdButtons = new MyButton[4];
+		cmdButtons[IClavier.START] = startBtn;
+		cmdButtons[IClavier.STOP] = stopBtn;
+		cmdButtons[IClavier.INC] = incBtn;
+		cmdButtons[IClavier.DEC] = decBtn;
 	}
 
 	private void configureView() {
-		this.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		
 		// Turn on labels at major tick marks.
 		tempoSlider.setMajorTickSpacing(100);
@@ -121,38 +121,38 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 		btnsPanel.add(incBtn);
 		btnsPanel.add(decBtn);
 
-		this.add(tempoSlider, BorderLayout.WEST);
-		this.add(displayLabel, BorderLayout.NORTH);
-		this.add(ledsPanel, BorderLayout.CENTER);
-		this.add(btnsPanel, BorderLayout.SOUTH);
+		add(tempoSlider, BorderLayout.WEST);
+		add(displayLabel, BorderLayout.NORTH);
+		add(ledsPanel, BorderLayout.CENTER);
+		add(btnsPanel, BorderLayout.SOUTH);
 	}
 
 	private void defineCallbacks() {
-		this.tempoSlider.addChangeListener(new ChangeListener() {
+		tempoSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				controller.tempo();
 			}
 		});
 		
-		this.startBtn.addActionListener(new ActionListener() {
+		startBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				controller.start();
 			}
 		});
 		
-		this.stopBtn.addActionListener(new ActionListener() {
+		stopBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				controller.stop();
 			}
 		});
 		
-		this.incBtn.addActionListener(new ActionListener() {
+		incBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				controller.inc();
 			}
 		});
 		
-		this.decBtn.addActionListener(new ActionListener() {
+		decBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				controller.dec();
 			}
@@ -160,7 +160,7 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	}
 
 	public void setController(IController c){
-		this.controller = c;
+		controller = c;
 	}
 	
 	protected void postExecute(TimerTask task, int delay) {
@@ -176,8 +176,8 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	}
 	
 	public void setBPMConstants(int minBpm, int maxBpm, int defaultBpm) {
-		this.minBPM = minBpm;
-		this.maxBPM = maxBpm;
+		minBPM = minBpm;
+		maxBPM = maxBpm;
 	}
 	
 	public void onStart(int tempo, int bpm) {
@@ -196,11 +196,11 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	}
 
 	public void onBPMChanged(int bpm) {
-		if (bpm > this.minBPM) this.decBtn.setEnabled(true);
-		else this.decBtn.setEnabled(false);
+		if (bpm > minBPM) decBtn.setEnabled(true);
+		else decBtn.setEnabled(false);
 		
-		if (bpm < this.maxBPM) this.incBtn.setEnabled(true);
-		else this.incBtn.setEnabled(false);
+		if (bpm < maxBPM) incBtn.setEnabled(true);
+		else incBtn.setEnabled(false);
 	}
 
 	public void onTempoChanged(int tempo) {
@@ -210,11 +210,11 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	public void allumerLed(int id) {
 		switch (id) {
 			case IAfficheur.TEMPO:
-				this.ledLabels[id].setIcon(this.redLedIcon);
+				ledLabels[id].setIcon(redLedIcon);
 				break;
 				
 			case IAfficheur.MEASURE:
-				this.ledLabels[id].setIcon(this.blueLedIcon);
+				ledLabels[id].setIcon(blueLedIcon);
 				break;
 			
 			default:
@@ -224,7 +224,7 @@ public class Metronome extends JPanel implements IView, IControllerListener {
 	}
 
 	public void eteindreLed(int id) {
-		ledLabels[id].setIcon(this.offLedIcon);
+		ledLabels[id].setIcon(offLedIcon);
 	}
 
 	public void afficherTempo(int value) {
