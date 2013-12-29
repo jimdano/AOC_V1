@@ -5,7 +5,13 @@ package fr.istic.aoc.metronome.moteur;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import fr.isitc.aoc.metronome.command.BipCommand;
+import fr.istic.aoc.components.command.ICommand;
+import fr.istic.aoc.metronome.controller.MetronomeController;
+import fr.istic.aoc.metronome.view.Metronome;
 
 /**
  * @author jimmy
@@ -13,20 +19,34 @@ import org.junit.Test;
  */
 public class MoteurMetronomeTest {
 
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.moteur.MoteurMetronome#MoteurMetronome(int, int)}.
-	 */
-	@Test
-	public void testMoteurMetronome() {
-		fail("Not yet implemented");
+	private static final int TEMPO = MetronomeController.INIT_TEMPO;
+	private static final int BPM = MetronomeController.INIT_BPM;
+	
+	private MoteurMetronome moteur;
+	private ICommand bipCmd;
+	private BipCommand bipCmd2;
+	private Metronome view;
+	private MetronomeController ctrl;
+	
+	@Before
+	public void setUp() throws Exception {
+		moteur = new MoteurMetronome(TEMPO, BPM);
+		bipCmd = new BipCommand(moteur);
+		moteur.setBipCommand(bipCmd);
+		ctrl = MetronomeController.getInstance();
+		view = new Metronome();
+		ctrl.setMoteur(moteur);
+		ctrl.addControllerListener(view);
+		ctrl.setView(view);
+		view.init();
 	}
-
+	
 	/**
 	 * Test method for {@link fr.istic.aoc.metronome.moteur.MoteurMetronome#isStarted()}.
 	 */
 	@Test
 	public void testIsStarted() {
-		fail("Not yet implemented");
+		assertFalse(moteur.isStarted());
 	}
 
 	/**
@@ -34,7 +54,9 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testStart() {
-		fail("Not yet implemented");
+		assertFalse(moteur.isStarted());
+		moteur.start();		
+		assertTrue(moteur.isStarted());
 	}
 
 	/**
@@ -42,7 +64,11 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testStop() {
-		fail("Not yet implemented");
+		assertFalse(moteur.isStarted());
+		moteur.start();		
+		assertTrue(moteur.isStarted());
+		moteur.stop();
+		assertFalse(moteur.isStarted());
 	}
 
 	/**
@@ -50,7 +76,7 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testGetBpm() {
-		fail("Not yet implemented");
+		assertEquals(BPM, moteur.getBpm());
 	}
 
 	/**
@@ -58,7 +84,8 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testSetBpm() {
-		fail("Not yet implemented");
+		moteur.setBpm(BPM + 1 );
+		assertEquals(BPM+1, moteur.getBpm());
 	}
 
 	/**
@@ -66,7 +93,7 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testGetTempo() {
-		fail("Not yet implemented");
+		assertEquals(TEMPO, moteur.getTempo());
 	}
 
 	/**
@@ -74,15 +101,8 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testSetTempo() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.moteur.MoteurMetronome#setBipCommand(fr.istic.aoc.components.command.ICommand)}.
-	 */
-	@Test
-	public void testSetBipCommand() {
-		fail("Not yet implemented");
+		moteur.setTempo(TEMPO + 1);
+		assertEquals(TEMPO+1, moteur.getTempo());
 	}
 
 	/**
@@ -90,7 +110,29 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testGetBipCommand() {
-		fail("Not yet implemented");
+		assertEquals(bipCmd, moteur.getBipCommand());
+	}
+	
+	/**
+	 * Test method for {@link fr.istic.aoc.metronome.moteur.MoteurMetronome#setBipCommand(fr.istic.aoc.components.command.ICommand)}.
+	 */
+	@Test
+	public void testSetBipCommand() {
+		bipCmd2 = new BipCommand(moteur);
+		moteur.setBipCommand(bipCmd2);
+		assertEquals(bipCmd2, moteur.getBipCommand());
+	}
+	
+	@Test
+	public void testGetBipCount() {
+		assertTrue(moteur.getBipCount() == 0);
+	}
+
+	@Test
+	public void testSetBipCount() {
+		assertTrue(moteur.getBipCount() == 0);
+		moteur.setBipCount(4);
+		assertTrue(moteur.getBipCount() == 4);
 	}
 
 	/**
@@ -98,7 +140,12 @@ public class MoteurMetronomeTest {
 	 */
 	@Test
 	public void testBip() {
-		fail("Not yet implemented");
+		assertTrue(moteur.getBipCount() == 0);
+		while(moteur.getBipCount() < MetronomeController.INIT_BPM -1){
+			moteur.bip();
+		}
+		assertTrue(moteur.getBipCount() == MetronomeController.INIT_BPM -1);
+		moteur.bip();
+		assertTrue(moteur.getBipCount() == 0);
 	}
-
 }

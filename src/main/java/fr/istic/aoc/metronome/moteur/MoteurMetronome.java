@@ -13,6 +13,7 @@ public class MoteurMetronome implements IMoteur {
 	private int tempo;
 	private int bpm;
 	private int bipCount;
+
 	private IHorloge horloge;
 	private ICommand bipCmd;
 	private IMoteurState state = StopState.stop;
@@ -79,5 +80,19 @@ public class MoteurMetronome implements IMoteur {
 			MetronomeController.getInstance().onMesure();
 			bipCount = 0;
 		}
+	}
+	
+	/**
+	 * @return the bipCount
+	 */
+	public int getBipCount() {
+		return bipCount;
+	}
+
+	/**
+	 * @param bipCount the bipCount to set
+	 */
+	public void setBipCount(int bipCount) {
+		this.bipCount = bipCount;
 	}
 }
