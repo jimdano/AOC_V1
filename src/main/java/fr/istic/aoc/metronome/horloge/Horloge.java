@@ -11,6 +11,20 @@ public class Horloge implements IHorloge {
 
 	private Hashtable<ICommand, Timer> taches;
 	
+	/**
+	 * @return the taches
+	 */
+	public Hashtable<ICommand, Timer> getTaches() {
+		return taches;
+	}
+
+	/**
+	 * @param taches the taches to set
+	 */
+	public void setTaches(Hashtable<ICommand, Timer> taches) {
+		this.taches = taches;
+	}
+
 	public Horloge() {
 		taches = new Hashtable<ICommand, Timer>();
 	}

@@ -11,7 +11,7 @@ import fr.istic.aoc.metronome.view.IView;
 
 public class MetronomeController implements  IController, IMoteurListener{
 
-	private static final int LED_FLASH_DELAY = 150;
+	private static final int LED_FLASH = 150;
 	private static final int MIN_TEMPO = 0;
 	private static final int MIN_BPM = 2;
 	private static final int MAX_TEMPO = 200;
@@ -115,7 +115,7 @@ public class MetronomeController implements  IController, IMoteurListener{
 				view.getAfficheur().eteindreLed(0);
 			}
 		};
-		timer.schedule(t, LED_FLASH_DELAY);
+		timer.schedule(t, LED_FLASH);
 	}
 
 	public void onMesure() {
@@ -128,7 +128,7 @@ public class MetronomeController implements  IController, IMoteurListener{
 				view.getAfficheur().eteindreLed(1);
 			}
 		};
-		timer.schedule(t, LED_FLASH_DELAY);
+		timer.schedule(t, LED_FLASH);
 	}
 
 	public void setMoteur(IMoteur moteur) {
