@@ -12,10 +12,10 @@ import fr.istic.aoc.metronome.view.IView;
 public class MetronomeController implements  IController, IMoteurListener{
 
 	private static final int LED_FLASH = 150;
-	private static final int MIN_TEMPO = 0;
-	private static final int MIN_BPM = 2;
-	private static final int MAX_TEMPO = 200;
-	private static final int MAX_BPM = 7;
+	public static final int MIN_TEMPO = 0;
+	public static final int MIN_BPM = 2;
+	public static final int MAX_TEMPO = 200;
+	public static final int MAX_BPM = 7;
 	public static final int INIT_TEMPO = 100;
 	public static final int INIT_BPM = 4;
 	

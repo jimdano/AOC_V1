@@ -3,9 +3,16 @@
  */
 package fr.istic.aoc.metronome.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import fr.isitc.aoc.metronome.command.BipCommand;
+import fr.istic.aoc.metronome.moteur.MoteurMetronome;
+import fr.istic.aoc.metronome.view.Metronome;
 
 /**
  * @author jimmy
@@ -13,12 +20,35 @@ import org.junit.Test;
  */
 public class MetronomeControllerTest {
 
+	private static final int MIN_BPM = MetronomeController.MIN_BPM;
+	private static final int MAX_BPM = MetronomeController.MAX_BPM;
+	private static final int INIT_TEMPO = MetronomeController.INIT_TEMPO;
+	private static final int INIT_BPM = MetronomeController.INIT_BPM;
+	
+	private Metronome view;
+	private MoteurMetronome moteur;
+	private MetronomeController ctrl;
+	private Metronome view2;
+	private MoteurMetronome moteur2;
+	
+	@Before
+	public void setUp() throws Exception {
+		ctrl = MetronomeController.getInstance();
+		moteur = new MoteurMetronome(INIT_TEMPO, INIT_BPM);
+		moteur.setBipCommand(new BipCommand(moteur));
+		view = new Metronome();
+		ctrl.setMoteur(moteur);
+		ctrl.addControllerListener(view);
+		ctrl.setView(view);
+		view.init();
+	}
+	
 	/**
 	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#getInstance()}.
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		assertNotNull(ctrl);
 	}
 
 	/**
@@ -26,7 +56,7 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testInit() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -34,7 +64,8 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testStart() {
-		fail("Not yet implemented");
+		ctrl.start();
+		assertTrue(ctrl.getMoteur().isStarted());
 	}
 
 	/**
@@ -42,7 +73,10 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testStop() {
-		fail("Not yet implemented");
+		ctrl.start();
+		assertTrue(ctrl.getMoteur().isStarted());
+		ctrl.stop();
+		assertFalse(ctrl.getMoteur().isStarted());
 	}
 
 	/**
@@ -50,7 +84,22 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testInc() {
-		fail("Not yet implemented");
+		boolean same = false;
+		if(moteur.getBpm() == MAX_BPM){
+			ctrl.dec();
+			int val = moteur.getBpm();
+			ctrl.inc();
+			assertTrue(moteur.getBpm() == (val+1) && moteur.getBpm() == MAX_BPM);
+		} else {
+			while(!same) {
+				int val = moteur.getBpm();
+				ctrl.inc();
+				if(val == moteur.getBpm()){
+					same = true;
+				}
+			}
+			assertTrue(moteur.getBpm() == MAX_BPM);
+		}
 	}
 
 	/**
@@ -58,7 +107,22 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testDec() {
-		fail("Not yet implemented");
+		boolean same = false;
+		if(moteur.getBpm() == MIN_BPM){
+			ctrl.inc();
+			int val = moteur.getBpm();
+			ctrl.dec();
+			assertTrue(moteur.getBpm() == (val-1) && moteur.getBpm() == MIN_BPM);
+		} else {
+			while(!same) {
+				int val = moteur.getBpm();
+				ctrl.dec();
+				if(val == moteur.getBpm()){
+					same = true;
+				}
+			}
+			assertTrue(moteur.getBpm() == MIN_BPM);
+		}
 	}
 
 	/**
@@ -66,63 +130,7 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testTempo() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#onBPMChanged(int)}.
-	 */
-	@Test
-	public void testOnBPMChanged() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#onTempoChanged(int)}.
-	 */
-	@Test
-	public void testOnTempoChanged() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#onStart(int, int)}.
-	 */
-	@Test
-	public void testOnStart() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#onStop()}.
-	 */
-	@Test
-	public void testOnStop() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#onBip()}.
-	 */
-	@Test
-	public void testOnBip() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#onMesure()}.
-	 */
-	@Test
-	public void testOnMesure() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#setMoteur(fr.istic.aoc.metronome.moteur.IMoteur)}.
-	 */
-	@Test
-	public void testSetMoteur() {
-		fail("Not yet implemented");
+		//pas possible de tester sans mocks...
 	}
 
 	/**
@@ -130,15 +138,20 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testGetMoteur() {
-		fail("Not yet implemented");
+		assertTrue(ctrl.getMoteur() == moteur);
 	}
-
+	
 	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#setView(fr.istic.aoc.metronome.view.IView)}.
+	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#setMoteur(fr.istic.aoc.metronome.moteur.IMoteur)}.
 	 */
 	@Test
-	public void testSetView() {
-		fail("Not yet implemented");
+	public void testSetMoteur() {
+		assertTrue(ctrl.getMoteur() == moteur);
+		ctrl.setMoteur(null);
+		assertFalse(ctrl.getMoteur() == moteur);
+		moteur2 = new MoteurMetronome(INIT_TEMPO,INIT_BPM);
+		ctrl.setMoteur(moteur2);
+		assertTrue(ctrl.getMoteur() == moteur2);
 	}
 
 	/**
@@ -146,15 +159,19 @@ public class MetronomeControllerTest {
 	 */
 	@Test
 	public void testGetView() {
-		fail("Not yet implemented");
+		assertTrue(ctrl.getView() == view);
 	}
-
+	
 	/**
-	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#addControllerListener(fr.istic.aoc.metronome.controller.IControllerListener)}.
+	 * Test method for {@link fr.istic.aoc.metronome.controller.MetronomeController#setView(fr.istic.aoc.metronome.view.IView)}.
 	 */
 	@Test
-	public void testAddControllerListener() {
-		fail("Not yet implemented");
+	public void testSetView() {
+		assertTrue(ctrl.getView() == view);
+		ctrl.setView(null);
+		assertFalse(ctrl.getView() == view);
+		view2 = new Metronome();
+		ctrl.setView(view2);
+		assertTrue(ctrl.getView() == view2);
 	}
-
 }
