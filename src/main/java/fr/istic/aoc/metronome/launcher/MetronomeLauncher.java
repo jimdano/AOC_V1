@@ -7,27 +7,35 @@ import fr.istic.aoc.metronome.moteur.MoteurMetronome;
 import fr.istic.aoc.metronome.view.Metronome;
 
 /**
- * @author Jimmy
+ * @author Jimmy & anthony
+ * le lanceur de l'application
  */
 public class MetronomeLauncher extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
 	private static final int width = 280;
 	private static final int height = 220;
-
+	/**
+	 * vue associée
+	 */
 	private Metronome view;
-	private MoteurMetronome engine;
+	/**
+	 * moteur de métronome utilisé
+	 */
+	private MoteurMetronome moteur;
 
+	/**
+	 * initialisation de la vue et des composants nécessaire
+	 */
 	public MetronomeLauncher() {
 		super("Métronomium V1");
 		
 		view = new Metronome();
 		MetronomeController.getInstance();
-		engine = new MoteurMetronome(MetronomeController.INIT_TEMPO, MetronomeController.INIT_BPM);
-		MetronomeController.getInstance().setMoteur(engine);
+		moteur = new MoteurMetronome(MetronomeController.INIT_TEMPO, MetronomeController.INIT_BPM);
+		MetronomeController.getInstance().setMoteur(moteur);
 		MetronomeController.getInstance().setView(view);
-		MetronomeController.getInstance().addControllerListener(view);
+		MetronomeController.getInstance().addController(view);
 		view.init();
 		MetronomeController.getInstance().init();
 		setSize(width, height);
@@ -38,6 +46,10 @@ public class MetronomeLauncher extends JFrame {
 		setVisible(true);
 	}
 	
+	/**
+	 * lanceur de l'application
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new MetronomeLauncher();
 	}

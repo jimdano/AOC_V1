@@ -36,7 +36,7 @@ public class MoteurMetronomeTest {
 		ctrl = MetronomeController.getInstance();
 		view = new Metronome();
 		ctrl.setMoteur(moteur);
-		ctrl.addControllerListener(view);
+		ctrl.addController(view);
 		ctrl.setView(view);
 		view.init();
 	}

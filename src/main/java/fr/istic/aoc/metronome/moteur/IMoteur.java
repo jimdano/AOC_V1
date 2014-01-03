@@ -2,58 +2,63 @@ package fr.istic.aoc.metronome.moteur;
 
 import fr.istic.aoc.components.command.ICommand;
 
+/**
+ * 
+ * @author jimmy & Anthony
+ * interface définissant les méthodes du moteur métronome
+ */
 public interface IMoteur {
 
 	/**
-	 * @return true if the engine is started; false otherwise
+	 * @return true => moteur démarré, false sinon
 	 */
 	boolean isStarted();
 	
 	/**
-	 * Starts the engine
+	 * démarre le moteur
 	 */
 	void start();
 	
 	/**
-	 * Stops the engine
+	 * Stop le moteur
 	 */
 	void stop();
 	
 	/**
-	 * @return the number of time by extent
+	 * @return bpm courant
 	 */
 	int getBpm();
 	
 	/**
-	 * Sets the number of time by extent with the given parameter
-	 * @param value number of time by extent
+	 * setter du bpm
+	 * @param value nouvelle valeur pour le bpm
 	 */
 	void setBpm(int value);
 	
 	/**
-	 * @return the tempo
+	 * @return le tempo courant
 	 */
 	int getTempo();
 	
 	/**
-	 * Sets the tempo value
-	 * @param value tempo value
+	 * setter du tempo
+	 * @param value la nouvelle valeur de tempo
 	 */
 	void setTempo(int value);
 	
 	/**
-	 * Register a new ICommand to use for beats
-	 * @param cmd the command
+	 * la commande utilisée pour les battements est définie ici
+	 * @param cmd la commande
 	 */
 	void setBipCommand(ICommand beatCmd);
 	
 	/**
-	 * Return the registred ICommand used for beats
+	 * @return la commande utilisée pour les battements
 	 */
 	ICommand getBipCommand();
 	
 	/**
-	 * Called by the beat command to trigger a beat
+	 * effectue le bip
 	 */
 	void bip();
 }

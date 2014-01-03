@@ -1,36 +1,42 @@
 package fr.istic.aoc.metronome.moteur;
 
+/**
+ * 
+ * @author jimmy & Anthony
+ * définie les méthodes utilisées par le controller
+ * 
+ */
 public interface IMoteurListener {
 	
 	/**
-	 * @param bpm the new bpm value
+	 * @param bpm la nouvelle valeur du bpm
 	 */
 	void onBPMChanged(int bpm);
 	
 	/**
-	 * @param tempo the new tempo value
+	 * @param tempo le nouveau tempo
 	 */
 	void onTempoChanged(int tempo);
 	
 	/**
-	 * Tell the listener that the engine started
-	 * @param tempo the current tempo
-	 * @param bpm the current bpm
-	 */
+	 * notifie le listener que le moteur est en marche
+	 * @param tempo courant
+	 * @param bpm courant
+ 	 */
 	void onStart(int tempo, int bpm);
 	
 	/**
-	 * Tell the listener that the engine stopped
+	 * notifie le listener que le moteur est stoppé
 	 */
 	void onStop();
 	
 	/**
-	 * Tell the listener that is time to make a beat
+	 * notifie le listener pour bipper
 	 */
 	void onBip();
 	
 	/**
-	 * Tell the listener that is time to make a measure
+	 * notifie le listener pour marquer une mesure
 	 */
 	void onMesure();
 }

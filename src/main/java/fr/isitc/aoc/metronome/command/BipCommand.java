@@ -14,14 +14,21 @@ public class BipCommand implements ICommand{
 
 	private IMoteur m;
 	
+	/**
+	 * constructeur
+	 * @param moteur le moteurMetronome qui execute les bip
+	 */
 	public BipCommand(IMoteur moteur) {
 		this.m = moteur;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void execute() {
 		if(m != null){
 			m.bip();	
 		}
-		else System.out.println("Pas de MoteurMetronome");
+		else System.err.println("Pas de MoteurMetronome");
 	}
 }

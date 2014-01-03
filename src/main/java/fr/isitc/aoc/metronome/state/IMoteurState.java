@@ -3,32 +3,36 @@ package fr.isitc.aoc.metronome.state;
 import fr.istic.aoc.components.api.IHorloge;
 import fr.istic.aoc.metronome.moteur.IMoteur;
 
-
+/**
+ * 
+ * @author jimmy & Anthony
+ * Etat du moteur du métronome
+ */
 public interface IMoteurState {
 
 	/**
-	 * @return true if it is in startedState: false otherwise
+	 * @return retourne une valeur dépendante de l'état courant
 	 */
 	boolean isStarted();
 	
 	/**
-	 * Start has been called on engine, do some work accordingly
-	 * @param engine
-	 * @param clock
+	 * Start le moteur 
+	 * @param moteur
+	 * @param horloge
 	 */
-	void start(IMoteur engine, IHorloge clock);
+	void start(IMoteur moteur, IHorloge horloge);
 	
 	/**
-	 * Stop has been called on engine, do some work accordingly
-	 * @param engine
-	 * @param clock
+	 * stop le moteur
+	 * @param moteur
+	 * @param horloge
 	 */
-	void stop(IMoteur engine, IHorloge clock);
+	void stop(IMoteur moteur, IHorloge horloge);
 	
 	/**
-	 * Tempo value has been changed
-	 * @param engine
-	 * @param clock
+	 * valeur du tempo qui changent
+	 * @param moteur
+	 * @param horloge
 	 */
-	void setTempo(IMoteur engine, IHorloge clock);
+	void setTempo(IMoteur moteur, IHorloge horloge);
 }

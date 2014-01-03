@@ -4,8 +4,8 @@ import fr.istic.aoc.components.api.*;
 
 
 /**
- * @author Jimmy
+ * @author Jimmy & Anthony
+ * Simulateur d'interface (Swing ici)
  */
 public interface ISimulation extends IMateriel, IAfficheur, IClavier, IMolette, IEmetteurSonore{
-
 }

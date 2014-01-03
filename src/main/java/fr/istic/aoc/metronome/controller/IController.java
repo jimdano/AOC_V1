@@ -1,29 +1,33 @@
 package fr.istic.aoc.metronome.controller;
 
+/**
+ * @author jimmy & Anthony
+ * interface regroupant les méthodes utilisées par le controller
+ */
 public interface IController {
 
 	/**
-	 * Used to start the engine
+	 * Démarre le moteur
 	 */
 	void start();
 	
 	/**
-	 * Used to stop the engine
+	 * stop le moteur
 	 */
 	void stop();
 	
 	/**
-	 * Used to increase the number of beat per measure
+	 * augmente le nombre de battements par mesure
 	 */
 	void inc();
 
 	/**
-	 * Used to decrease the number of beat per measure
+	 * diminue le nombre de battements par mesure
 	 */
 	void dec();
 
 	/**
-	 * Used to update the tempo
+	 * mise à jour du tempo
 	 */
 	void tempo();
 }
